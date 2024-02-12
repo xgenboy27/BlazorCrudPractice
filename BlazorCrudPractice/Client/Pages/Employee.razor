@@ -1,0 +1,146 @@
+﻿@page "/Employee"
+@using BlazorCrudPractice.Client.Services
+@using BlazorCrudPractice.Shared
+@inject HttpClient Http
+@inject IService _service
+
+<PageTitle>Employee Registration</PageTitle>
+
+<h1>Employee Registration</h1>
+
+<div>
+    <div>
+        <EditForm Model="EmployeeModel" OnSubmit="M_SaveEmployee">
+            <DataAnnotationsValidator />
+            <div class="row">
+                <div class="col">
+                    <InputText @bind-Value="EmployeeModel.EmployeeName" class="form-control"></InputText>
+                </div>
+                <div class="col">
+                    <InputText @bind-Value="EmployeeModel.EmployeeMiddleName" class="form-control">       
+                        <ValidationMessage For="@(() => EmployeeModel.EmployeeMiddleName)" />
+                    </InputText>
+                </div>
+                <div class="col">
+                    <InputText @bind-Value="EmployeeModel.EmployeeLastName" class="form-control"></InputText>
+                </div>
+                <div class="col">
+                    <InputNumber @bind-Value="EmployeeModel.EmployeeAge" class="form-control"></InputNumber>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">
+                        @*  <i class="oi oi-cloud-upload"></i> *@
+                        SAVE
+                    </button>
+
+                </div>
+            </div>
+
+        </EditForm>
+    </div>
+    <button class="btn btn-primary" @onclick="M_UpdateEmployee">
+        UPDATE
+    </button>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Employee Middle Name</th>
+                    <th>Employee Last Name</th>
+                    <th>Employee Age</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in _service.Employee)
+                {
+                    <tr>
+                        <td>@employee.EmployeeName</td>
+                        <td>@employee.EmployeeMiddleName</td>
+                        <td>@employee.EmployeeLastName</td>
+                        <td>@employee.EmployeeAge</td>
+                        <td>
+                            <button class="btn btn-primary" @onclick="@(() =>M_GetEmployeeById(@employee.RecId))">
+                                Edit
+                            </button>
+                            <button class="btn btn-primary" @onclick="@(() =>M_DeleteEmployee(@employee.RecId))">
+                                DELETE
+                            </button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+@code {
+
+    public EmployeeModel EmployeeModel = new EmployeeModel();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await _service.GetEmployeeList();
+    }
+
+
+    private void ClearFields()
+    {
+        EmployeeModel.RecId = 0;
+        EmployeeModel.EmployeeName = string.Empty;
+        EmployeeModel.EmployeeMiddleName = string.Empty;
+        EmployeeModel.EmployeeLastName = string.Empty;
+        EmployeeModel.EmployeeAge = 0;
+
+    }
+    private async Task M_SaveEmployee()
+    {
+
+        var result = await _service.SaveEmployee(EmployeeModel);
+
+        // if (result.Equals("SUCCESS"))
+        // {
+        await _service.GetEmployeeList();
+        // }
+        ClearFields();
+    }
+
+    private async Task M_UpdateEmployee()
+    {
+        if (EmployeeModel.RecId > 0)
+        {
+            var result = await _service.UpdateEmployee(EmployeeModel);
+        }
+
+
+        // if (result.Equals("SUCCESS"))
+        // {
+        await _service.GetEmployeeList();
+        ClearFields();
+        // }
+    }
+
+    private async Task M_GetEmployeeById(int recid)
+    {
+        var result = await _service.GetEmployeeById(recid);
+        ClearFields();
+        EmployeeModel = result.Data;
+        StateHasChanged();
+
+    }
+    private async Task M_DeleteEmployee(int recid)
+    {
+        var result = await _service.DeleteEmployee(recid);
+        ClearFields();
+        await _service.GetEmployeeList();
+        StateHasChanged();
+
+    }
+}
