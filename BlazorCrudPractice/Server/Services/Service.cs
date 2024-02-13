@@ -20,7 +20,6 @@ namespace BlazorCrudPractice.Server.Services
         }
         public async Task<ServiceResponse<string>> SaveEmployee(EmployeeModel employee)
         {
-
             _Context.ProcedureName = SP_CreateEmployee;
             _Context.Parameters = new System.Data.SqlClient.SqlParameter[]
                 { new System.Data.SqlClient.SqlParameter("@EmployeeName", employee.EmployeeName),
@@ -105,7 +104,7 @@ namespace BlazorCrudPractice.Server.Services
             _Context.Parameters = new System.Data.SqlClient.SqlParameter[]
                 {
                 new System.Data.SqlClient.SqlParameter("@RecId", recid)
-               
+
                 };
             await _Context.ExecuteAsync();
             if (_Context.OnFailure) return null;

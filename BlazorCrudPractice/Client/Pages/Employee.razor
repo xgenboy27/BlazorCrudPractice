@@ -6,7 +6,9 @@
 
 <PageTitle>Employee Registration</PageTitle>
 
-<h1>Employee Registration</h1>
+<h1>@Message_Code</h1>
+
+    
 
 <div>
     <div>
@@ -38,9 +40,9 @@
 
         </EditForm>
     </div>
-    <button class="btn btn-primary" @onclick="M_UpdateEmployee">
+@*     <button class="btn btn-primary" @onclick="M_UpdateEmployee">
         UPDATE
-    </button>
+    </button> *@
     <div>
         <table class="table">
             <thead>
@@ -76,18 +78,16 @@
     </div>
 </div>
 
-
-
-
 @code {
 
     public EmployeeModel EmployeeModel = new EmployeeModel();
 
 
-
+    public string Message_Code { get; set; } = string.Empty;
     protected override async Task OnInitializedAsync()
     {
         await _service.GetEmployeeList();
+        Message_Code = "GET EMPLOYEE LIST";
     }
 
 
@@ -98,38 +98,43 @@
         EmployeeModel.EmployeeMiddleName = string.Empty;
         EmployeeModel.EmployeeLastName = string.Empty;
         EmployeeModel.EmployeeAge = 0;
-
     }
     private async Task M_SaveEmployee()
-    {
-
-        var result = await _service.SaveEmployee(EmployeeModel);
-
-        // if (result.Equals("SUCCESS"))
-        // {
-        await _service.GetEmployeeList();
-        // }
-        ClearFields();
-    }
-
-    private async Task M_UpdateEmployee()
     {
         if (EmployeeModel.RecId > 0)
         {
             var result = await _service.UpdateEmployee(EmployeeModel);
+            Message_Code = result;
+            await _service.GetEmployeeList();
+            ClearFields();
+        }else
+        {
+            var result = await _service.SaveEmployee(EmployeeModel);
+            Message_Code = result;         
+            await _service.GetEmployeeList();         
+            ClearFields();
         }
-
-
-        // if (result.Equals("SUCCESS"))
-        // {
-        await _service.GetEmployeeList();
-        ClearFields();
-        // }
     }
+
+    // private async Task M_UpdateEmployee()
+    // {
+    //     if (EmployeeModel.RecId > 0)
+    //     {
+    //         var result = await _service.UpdateEmployee(EmployeeModel);
+    //         Message_Code = result;
+    //         await _service.GetEmployeeList();
+    //         ClearFields();
+    //     }
+    //     // if (result.Equals("SUCCESS"))
+    //     // {
+        
+    //     // }
+    // }
 
     private async Task M_GetEmployeeById(int recid)
     {
         var result = await _service.GetEmployeeById(recid);
+        Message_Code = "EDIT";
         ClearFields();
         EmployeeModel = result.Data;
         StateHasChanged();
@@ -138,6 +143,7 @@
     private async Task M_DeleteEmployee(int recid)
     {
         var result = await _service.DeleteEmployee(recid);
+        Message_Code = result;
         ClearFields();
         await _service.GetEmployeeList();
         StateHasChanged();
