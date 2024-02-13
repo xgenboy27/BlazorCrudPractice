@@ -12,7 +12,7 @@ namespace BlazorCrudPractice.Client.Services
             _http = http;
 
         }
-        public List<EmployeeModel> Employee { get; set; } = new List<EmployeeModel>();
+        //public List<EmployeeModel> Employee { get; set; } = new List<EmployeeModel>();
 
         public async Task<string> DeleteEmployee(int recid)
         {
@@ -32,11 +32,11 @@ namespace BlazorCrudPractice.Client.Services
             return response;
         }
 
-        public async Task GetEmployeeList()
+        public async Task<ServiceResponse<List<EmployeeModel>>> GetEmployeeList()
         {
             var response = await _http.GetFromJsonAsync<ServiceResponse<List<EmployeeModel>>>("api/Employee/EmployeeList");
-            if (response != null && response.Data != null)
-                Employee = response.Data;
+         
+                return  response;
         }
 
         public async Task<string> SaveEmployee(EmployeeModel employee)
