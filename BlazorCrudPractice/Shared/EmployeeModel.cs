@@ -18,6 +18,8 @@ namespace BlazorCrudPractice.Shared
         public string EmployeeLastName { get; set; }
         [Required]
         public int EmployeeAge { get; set; }
+        public DateTime EmployeeDateOfBirth { get; set; }= DateTime.Now;
+        public string EmployeeDateOfBirthStr { get; set; } = string.Empty;
 
     }
 }

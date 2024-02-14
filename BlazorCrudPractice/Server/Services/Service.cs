@@ -25,7 +25,8 @@ namespace BlazorCrudPractice.Server.Services
                 { new System.Data.SqlClient.SqlParameter("@EmployeeName", employee.EmployeeName),
                 new System.Data.SqlClient.SqlParameter("@EmployeeMiddleName", employee.EmployeeMiddleName),
                 new System.Data.SqlClient.SqlParameter("@EmployeeLastName", employee.EmployeeLastName),
-                new System.Data.SqlClient.SqlParameter("@EmployeeAge", employee.EmployeeAge)
+                new System.Data.SqlClient.SqlParameter("@EmployeeAge", employee.EmployeeAge),
+                new System.Data.SqlClient.SqlParameter("@EmployeeDateOfBirth", employee.EmployeeDateOfBirth)
                 };
             await _Context.ExecuteAsync();
             if (_Context.OnFailure) return null;
@@ -53,7 +54,8 @@ namespace BlazorCrudPractice.Server.Services
                 new System.Data.SqlClient.SqlParameter("@EmployeeName", employee.EmployeeName),
                 new System.Data.SqlClient.SqlParameter("@EmployeeMiddleName", employee.EmployeeMiddleName),
                 new System.Data.SqlClient.SqlParameter("@EmployeeLastName", employee.EmployeeLastName),
-                new System.Data.SqlClient.SqlParameter("@EmployeeAge", employee.EmployeeAge)
+                new System.Data.SqlClient.SqlParameter("@EmployeeAge", employee.EmployeeAge),
+                 new System.Data.SqlClient.SqlParameter("@EmployeeDateOfBirth", employee.EmployeeDateOfBirth)
                 };
             await _Context.ExecuteAsync();
             if (_Context.OnFailure) return null;
@@ -92,6 +94,7 @@ namespace BlazorCrudPractice.Server.Services
                                 EmployeeMiddleName = Convert.ToString(row["EmployeeMiddleName"]),
                                 EmployeeLastName = Convert.ToString(row["EmployeeLastName"]),
                                 EmployeeAge = Convert.ToInt32(row["EmployeeAge"]),
+                                EmployeeDateOfBirthStr = Convert.ToString(row["EmployeeDateOfBirth"]),
 
                             })
                             .ToList();
@@ -142,6 +145,7 @@ namespace BlazorCrudPractice.Server.Services
                 model.EmployeeMiddleName = Convert.ToString(row["EmployeeMiddleName"]);
                 model.EmployeeLastName = Convert.ToString(row["EmployeeLastName"]);
                 model.EmployeeAge = Convert.ToInt32(row["EmployeeAge"]);
+                model.EmployeeDateOfBirth = Convert.ToDateTime(row["EmployeeDateOfBirth"]);
                 return new ServiceResponse<EmployeeModel>
                 {
                     Data = model
