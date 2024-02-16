@@ -1,4 +1,5 @@
 ﻿using BlazorCrudPractice.Shared;
+using BlazorCrudPractice.Shared.Model;
 
 namespace BlazorCrudPractice.Client.Services
 {
@@ -6,10 +7,10 @@ namespace BlazorCrudPractice.Client.Services
     {
         //List<EmployeeModel> Employee { get; set; }
       
-        Task<ServiceResponse<List<EmployeeModel>>>  GetEmployeeList();
+        Task<List<EmployeeServiceList>>  GetEmployeeList();
         Task<string> SaveEmployee(EmployeeModel employee);
         Task<string> UpdateEmployee(EmployeeModel employee);
         Task<string> DeleteEmployee(int recid);
-        Task <ServiceResponse<EmployeeModel>> GetEmployeeById(int recid);
+        Task <EmployeeModel> GetEmployeeById(int recid);
     }
 }

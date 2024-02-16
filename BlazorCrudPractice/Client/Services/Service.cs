@@ -1,65 +1,94 @@
-﻿using BlazorCrudPractice.Shared;
+﻿using BlazorCrudPractice.Client.Pages;
+using BlazorCrudPractice.Shared;
+using BlazorCrudPractice.Shared.Model;
+using Newtonsoft.Json;
+using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text;
 
 namespace BlazorCrudPractice.Client.Services
 {
-    public class Service : IService
+    public class Service : BaseService, IService
     {
-        private readonly HttpClient _http;
-        public Service(HttpClient http)
+        public Service(HttpClient pHttpClient) : base(pHttpClient)
         {
-
-            _http = http;
-
         }
-        //public List<EmployeeModel> Employee { get; set; } = new List<EmployeeModel>();
-
+        /*Done Multi Service*/
         public async Task<string> DeleteEmployee(int recid)
         {
-            var response = await _http.DeleteAsync($"api/Employee/DeleteEmployee/{recid}");
+            //var response = await httpClient.DeleteAsync($"api/Employee/save-deleteEmployee/{recid}");     
+            var response = await this.httpClient.DeleteAsync($"api/Employee/save-deleteEmployee/{recid}");
+            response.EnsureSuccessStatusCode();
+            var contentTemp = await response.Content.ReadAsStringAsync();
+            //var result = JsonConvert.DeserializeObject<EmployeeResponse<string>>(contentTemp);
+            return contentTemp;
 
-            if (response.IsSuccessStatusCode)
-            {
-                return (await response.Content
-                .ReadFromJsonAsync<ServiceResponse<string>>()).Message;
-            }
-            return "";
+            //else
+            //{
+            //    var contentTemp = await response.Content.ReadAsStringAsync();
+            //    var errorModel = JsonConvert.DeserializeObject<ErrorModel>(contentTemp);
+            //    throw new Exception(errorModel.ErrorMessage);
+            //}
         }
-
-        public async Task<ServiceResponse<EmployeeModel>> GetEmployeeById(int recid)
+        /*Done Multi Service*/
+        public async Task<EmployeeModel> GetEmployeeById(int recid)
         {
-            var response = await _http.GetFromJsonAsync<ServiceResponse<EmployeeModel>>($"api/Employee/EmployeeById/{recid}");
-            return response;
+            var response = await httpClient.GetAsync($"api/Employee/get-EmployeeById/{recid}");          
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var rooms = JsonConvert.DeserializeObject<EmployeeModel>(content);
+            return rooms;
         }
 
-        public async Task<ServiceResponse<List<EmployeeModel>>> GetEmployeeList()
+        /*Done Multi Service*/
+        public async Task<List<EmployeeServiceList>> GetEmployeeList()
         {
-            var response = await _http.GetFromJsonAsync<ServiceResponse<List<EmployeeModel>>>("api/Employee/EmployeeList");
-         
-                return  response;
+            var response = await this.httpClient.GetAsync("api/Employee/get-employeeList");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var rooms = JsonConvert.DeserializeObject<EmployeeListResponse<List<EmployeeServiceList>>>(content);
+            return rooms.Result;
         }
 
+        /*Done Multi Service*/
         public async Task<string> SaveEmployee(EmployeeModel employee)
         {
-            var response = await _http.PostAsJsonAsync("api/Employee/SaveEmployee", employee);
+            var content = JsonConvert.SerializeObject(employee);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await this.httpClient.PostAsync("api/Employee/save-createEmployee", bodyContent);
 
-            if (response.IsSuccessStatusCode)
-            {
-                return (await response.Content
-                .ReadFromJsonAsync<ServiceResponse<string>>()).Message;
-            }
-            return "";
+            response.EnsureSuccessStatusCode();
+            var contentTemp = await response.Content.ReadAsStringAsync();
+            //var result = JsonConvert.DeserializeObject<EmployeeResponse<string>>(contentTemp);
+            return contentTemp;
+
+            //else
+            //{
+            //    var contentTemp = await response.Content.ReadAsStringAsync();
+            //    var errorModel = JsonConvert.DeserializeObject<ErrorModel>(contentTemp);
+            //    throw new Exception(errorModel.ErrorMessage);
+            //}
         }
 
+        /*Done Multi Service*/
         public async Task<string> UpdateEmployee(EmployeeModel employee)
-        {
-            var response = await _http.PutAsJsonAsync("api/Employee/UpdateEmployee", employee);
-            if (response.IsSuccessStatusCode)
-            {
-                return (await response.Content
-                .ReadFromJsonAsync<ServiceResponse<string>>()).Message;
-            }
-            return "";
+       {
+           
+            var content = JsonConvert.SerializeObject(employee);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await this.httpClient.PutAsync("api/Employee/save-updateEmployee", bodyContent);
+
+            response.EnsureSuccessStatusCode();
+            var contentTemp = await response.Content.ReadAsStringAsync();
+            //var result = JsonConvert.DeserializeObject<EmployeeResponse<string>>(contentTemp);
+            return contentTemp;
+
+            //else
+            //{
+            //    var contentTemp = await response.Content.ReadAsStringAsync();
+            //    var errorModel = JsonConvert.DeserializeObject<ErrorModel>(contentTemp);
+            //    throw new Exception(errorModel.ErrorMessage);
+            //}
         }
     }
 }

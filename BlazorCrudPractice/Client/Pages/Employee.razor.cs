@@ -1,8 +1,11 @@
 ﻿using BlazorCrudPractice.Client.Services;
 using BlazorCrudPractice.Shared;
+using BlazorCrudPractice.Shared.Model;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Net.NetworkInformation;
 using static System.Net.WebRequestMethods;
+using System.Net.Http.Json;
 
 namespace BlazorCrudPractice.Client.Pages
 {
@@ -11,8 +14,8 @@ namespace BlazorCrudPractice.Client.Pages
         [Inject] IService _service { get; set; }
         [Inject] IJSRuntime JsRuntime { get; set; }
 
-        public EmployeeModel EmployeeModels = new EmployeeModel();
-        protected List<EmployeeModel> Employee = new List<EmployeeModel>();
+        public EmployeeModel EmployeeModels { get; set; }= new EmployeeModel();
+        protected List<EmployeeServiceList> Employee = new List<EmployeeServiceList>();
         public bool IsProceed { get; set; } = false;
         public string Message_Code { get; set; } = string.Empty;
         protected override async Task OnInitializedAsync()
@@ -22,7 +25,7 @@ namespace BlazorCrudPractice.Client.Pages
         public async Task M_GetEMployeeList()
         {
             var result = await _service.GetEmployeeList();
-            Employee = result.Data;
+            Employee = result;
         }
         public void ClearFields()
         {
@@ -67,11 +70,17 @@ namespace BlazorCrudPractice.Client.Pages
         }
         public async Task M_GetEmployeeById(int recid)
         {
-            var result = await _service.GetEmployeeById(recid);
+
+            EmployeeModels = await _service.GetEmployeeById(recid);              
             Message_Code = "EDIT";
-            ClearFields();
-            EmployeeModels = result.Data;
-            StateHasChanged();
+            //EmployeeModels.RecId = recid;
+            //EmployeeModels.EmployeeName = result.EmployeeName;
+            //EmployeeModels.EmployeeMiddleName = result.EmployeeMiddleName;
+            //EmployeeModels.EmployeeLastName = result.EmployeeLastName;
+            //EmployeeModels.EmployeeAge = result.EmployeeAge;
+            //EmployeeModels.EmployeeDateOfBirth = result.EmployeeDateOfBirth;
+            //ClearFields();         
+            //StateHasChanged();
         }
         public async Task M_DeleteEmployee(int recid)
         {

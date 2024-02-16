@@ -1,5 +1,8 @@
-﻿using BlazorCrudPractice.Server.Services;
+﻿using BlazorCrudPractice.Server.Model;
+using BlazorCrudPractice.Server.Services;
+using BlazorCrudPractice.Service.Employee;
 using BlazorCrudPractice.Shared;
+using BlazorCrudPractice.Shared.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorCrudPractice.Server.Controllers
@@ -9,42 +12,44 @@ namespace BlazorCrudPractice.Server.Controllers
 
     public class EmployeeController : Controller
     {
-        private readonly IService _service;
+        private IMainEmployee _mainEmployee;
 
-        public EmployeeController(IService service)
+        public EmployeeController()
         {
-            _service = service;
+            _mainEmployee = new MainEmployee();
         }
 
+        [HttpPost("save-createEmployee")]
+        public async Task<ActionResult<string>> SaveEmployee([FromBody] EmployeeModel model)
+        {
+            var result = await _mainEmployee.CreateEmplyees(model);
+            return Ok(result);
+        }
 
-        [HttpPost("SaveEmployee")]
-        public async Task<ActionResult<ServiceResponse<string>>> SaveEmployee([FromBody] EmployeeModel model)
+        [HttpPut("save-updateEmployee")]
+        public async Task<ActionResult<string>> UpdateEmployee([FromBody] EmployeeModel model)
         {
-            var result = await _service.SaveEmployee(model);
+            var result = await _mainEmployee.UpdateEmplyees(model);
             return Ok(result);
         }
-        [HttpPut("UpdateEmployee")]
-        public async Task<ActionResult<ServiceResponse<string>>> UpdateEmployee([FromBody] EmployeeModel model)
+        [HttpDelete("save-deleteEmployee/{recid}")]
+        public async Task<ActionResult<string>> DeleteEmployee(int recid)
         {
-            var result = await _service.UpdateEmployee(model);
+            var result = await _mainEmployee.DeleteEmplyees(recid);
             return Ok(result);
         }
-        [HttpDelete("DeleteEmployee/{recid}")]
-        public async Task<ActionResult<ServiceResponse<string>>> DeleteEmployee(int recid)
+
+        [HttpGet("get-employeeList")]
+        public async Task<ActionResult<List<EmployeeServiceList>>> GetEmployeeList()
         {
-            var result = await _service.DeleteEmployee(recid);
+            var result = _mainEmployee.GetEmployeeList();
             return Ok(result);
         }
-        [HttpGet("EmployeeList")]
-        public async Task<ActionResult<ServiceResponse<List<EmployeeModel>>>> GetEmployeeList()
+
+        [HttpGet("get-EmployeeById/{recid}")]
+        public async Task<ActionResult<EmployeeModel>> GetEmployeeById(int recid)
         {
-            var result = await _service.GetEmployeeList();
-            return Ok(result);
-        }
-        [HttpGet("EmployeeById/{recid}")]
-        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> GetEmployeeById(int recid)
-        {
-            var result = await _service.GetEmployeeById(recid);
+            var result = await _mainEmployee.GetEmployeeByid(recid);
             return Ok(result);
         }
     }
