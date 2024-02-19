@@ -1,5 +1,6 @@
 ﻿using BlazorCrudPractice.Business.Model;
 using BlazorCrudPractice.Shared;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,16 @@ namespace BlazorCrudPractice.Business.DomainService.RegisterEmployee
     public class CreateEmployee : BaseEmployee, ICreateEmployee
     {
         private string message_Code = string.Empty;
-        private EmployeeModel _model;
+        private string JModel;
         public CreateEmployee(List<IDataAccess> pDataAccess) : base(pDataAccess)
         {
-            _model = new EmployeeModel();
+            JModel = string.Empty;
         }
 
         public string createEmployee(EmployeeModel model)
         {
-            _model = model;
+            this.JModel = JsonConvert.SerializeObject(model);
+            
             Validation();
             Initialize();
             return message_Code;
@@ -28,7 +30,8 @@ namespace BlazorCrudPractice.Business.DomainService.RegisterEmployee
         private void Initialize()
         {
             if (this.isValid == false) { return; }
-            this.message_Code = this.DLRegisterEmployee.CreateEmployee(_model);
+            
+            this.message_Code = this.DLRegisterEmployee.CreateEmployee(JModel);
         }
 
         private void Validation()

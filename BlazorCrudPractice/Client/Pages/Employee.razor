@@ -9,28 +9,28 @@
 <div>
     <div>
         <EditForm Model="EmployeeModels" OnSubmit="M_SaveEmployee">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
+            
 
             <div class="mb-3">
                 <label for="firstname">First Name</label>
                 <InputText @bind-Value="EmployeeModels.EmployeeName" class="form-control"></InputText>
-                <ValidationMessage For="@(() => EmployeeModels.EmployeeName)" />
+              
             </div>
             <div class="mb-3">
                 <label for="firstname">Middle Name</label>
                 <InputText @bind-Value="EmployeeModels.EmployeeMiddleName" class="form-control">
-                    <ValidationMessage For="@(() => EmployeeModels.EmployeeMiddleName)" />
+                 
                 </InputText>
             </div>
             <div class="mb-3">
                 <label for="firstname">Last Name</label>
                 <InputText @bind-Value="EmployeeModels.EmployeeLastName" class="form-control"></InputText>
-                <ValidationMessage For="@(() => EmployeeModels.EmployeeLastName)" />
+               
             </div>
             <div class="mb-3">
                 <label for="firstname">Age</label>
                 <InputNumber @bind-Value="EmployeeModels.EmployeeAge" class="form-control"></InputNumber>
-                <ValidationMessage For="@(() => EmployeeModels.EmployeeAge)" />
+               
             </div>
             <div class="mb-3">
                 <label for="firstname">Date Of Birth</label>

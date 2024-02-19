@@ -2,6 +2,7 @@
 using BlazorCrudPractice.Shared;
 using BlazorCrudPractice.Shared.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -52,10 +53,11 @@ namespace BlazorCrudPractice.Client.Services
 
         /*Done Multi Service*/
         public async Task<string> SaveEmployee(EmployeeModel employee)
-        {
+        {         
             var content = JsonConvert.SerializeObject(employee);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
             var response = await this.httpClient.PostAsync("api/Employee/save-createEmployee", bodyContent);
+
 
             response.EnsureSuccessStatusCode();
             var contentTemp = await response.Content.ReadAsStringAsync();

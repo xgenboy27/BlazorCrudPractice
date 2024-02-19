@@ -42,18 +42,18 @@ namespace BlazorCrudPractice.DataSQL.Employee
             return employeelist.ToList();
         }
         public string result { get; set; }
-        public string CreateEmployee(EmployeeModel model)
+        public string CreateEmployee(string model)
         {
             System.Data.Common.DbParameter message_Code = null;
             using (var dbCon = new BlazorCrudPracticeDbContext(this.Builder.Options))
             {
 
                 dbCon.LoadStoredProc(SP_CreateEmployee)
-                                     .WithSqlParam("@EmployeeName", model.EmployeeName)
-                                     .WithSqlParam("@EmployeeMiddleName", model.EmployeeMiddleName)
-                                     .WithSqlParam("@EmployeeLastName", model.EmployeeLastName)
-                                     .WithSqlParam("@EmployeeAge", model.EmployeeAge)
-                                     .WithSqlParam("@EmployeeDateOfBirth", model.EmployeeDateOfBirth)
+                                     .WithSqlParam("@JData", model)
+                                     //.WithSqlParam("@EmployeeMiddleName", model.EmployeeMiddleName)
+                                     //.WithSqlParam("@EmployeeLastName", model.EmployeeLastName)
+                                     //.WithSqlParam("@EmployeeAge", model.EmployeeAge)
+                                     //.WithSqlParam("@EmployeeDateOfBirth", model.EmployeeDateOfBirth)
                                      .WithSqlParam("@Message_Code", (dbParam) =>
                                      {
                                          dbParam.Direction = System.Data.ParameterDirection.Output;

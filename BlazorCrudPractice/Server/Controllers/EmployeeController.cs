@@ -23,6 +23,8 @@ namespace BlazorCrudPractice.Server.Controllers
         public async Task<ActionResult<string>> SaveEmployee([FromBody] EmployeeModel model)
         {
             var result = await _mainEmployee.CreateEmplyees(model);
+
+
             return Ok(result);
         }
 
