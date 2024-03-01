@@ -1,0 +1,245 @@
+﻿@page "/Login";
+
+
+
+<div class="LoginContainer">
+    <div class="col LeftContainer">
+        <img src="/assets/images/loginpicture.png" alt="Left Image" />
+    </div>
+    <div class="col RightContainer">
+        <div class="formInput">
+            <img class="logo" src="/assets/images/PrimePulseLogoName.png" alt="">
+            <div class="welcometo">
+                <span>Welcome to</span>
+                <br><span class="prime">PrimePulse HealthTech</span>
+            </div>
+            <form>
+                <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="form-group">
+                        <h6>Email</h6>
+                        <InputText id="email" class="form-control" style="@GetEmailBorderStyle()" @bind-Value="loginModel.Email" @oninput="OnEmailInput" placeholder="name@example.com" />
+                        <ValidationMessage For="@(() => loginModel.Email)" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <h6>Password</h6>
+                        <div class="passcontainer">
+                            <div class="input-group" style="">
+                                <InputText id="password" style="@GetPasswordBorderStyle()" type="@GetPasswordInputType()" class="form-control" @bind-Value="loginModel.Password" placeholder="Enter Password" />
+                                <div class="input-group-append" >
+                                    <span class="input-group-text show-password" @onclick="TogglePasswordVisibility" >
+                                        @if (passwordVisible)
+                                        {
+                                            <img src="../assets/visible.png" alt="Hide" />
+                                        }
+                                        else
+                                        {
+                                            <img src="../assets/invisible.png" alt="Show" />
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+                            <ValidationMessage For="@(() => loginModel.Password)" />
+                        </div>
+                    </div>
+
+
+                    @if (ShowErrors)
+                    {
+                        <div class="alert alert-danger mt-3" role="alert">
+                            <p>@Error</p>
+                        </div>
+                    }
+
+                    <div class="btn-group">
+
+                        @if (loading)
+                        {
+                            <button class="btn-login" disabled>
+                                Logging In
+                                <img src="./assets/EHRLoad.gif" class="loading-indicator">
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn-login">Log In</button>
+                        }
+
+                    </div>
+
+                    <p class="copyRight">Powered by PrimePulse HealthTech </p>
+                </EditForm>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@* <div class="Logincontainer">
+    <div class="image">
+        <img src="/assets/images/loginpicture.png" alt="Landing Image">
+    </div>
+    <div class="form">
+        <div class="formInput">
+            <img class="logo" src="/assets/images/PrimePulseLogoName.png" alt="">
+            <div class="welcometo">
+                <span>Welcome to</span>
+                <br><span class="prime">PrimePulse HealthTech</span>
+            </div>
+            <form>
+                <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="form-group">
+                        <InputText id="email" class="form-control" style="@GetEmailBorderStyle()" @bind-Value="loginModel.Email" @oninput="OnEmailInput" placeholder="Email" />
+                        <ValidationMessage For="@(() => loginModel.Email)" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="passcontainer">
+                            <div class="input-group">
+                                <InputText id="password" style="@GetPasswordBorderStyle()" type="@GetPasswordInputType()" class="form-control" @bind-Value="loginModel.Password" placeholder="Password" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text show-password" @onclick="TogglePasswordVisibility">
+                                        @if (passwordVisible)
+                                        {
+                                            <img src="../assets/visible.png" alt="Hide" />
+                                        }
+                                        else
+                                        {
+                                            <img src="../assets/invisible.png" alt="Show" />
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+                            <ValidationMessage For="@(() => loginModel.Password)" />
+                        </div>
+                    </div>
+
+
+
+
+
+                    @if (ShowErrors)
+                    {
+                        <div class="alert alert-danger mt-3" role="alert">
+                            <p>@Error</p>
+                        </div>
+                    }
+
+                    <div class="btn-group">
+
+                        @if (loading)
+                        {
+                            <button class="btn-login" disabled>
+                                Logging In
+                                <img src="./assets/loading.gif" class="loading-indicator">
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn-login">Login</button>
+                        }
+
+                    </div>
+                </EditForm>
+            </form>
+        </div>
+    </div>
+</div> *@
+
+@* <div class="background-image-gtec">
+    <div class="page-container">
+        <div>
+
+            <div class="form-container">
+                <!--
+                <div class="form-header">
+                    <img src="./assets/gtec-logo.png" alt="gtec-icon" class="gtec-icon" />
+
+                    <div class="form-header-text">
+                        <p class="caption"> Login your account </p>
+                        <p class="sub-caption">Enter the fields below to get started</p>
+                    </div>
+                </div>-->
+
+                <div class="title d-flex flex-column align-items-center justify-content-center">
+                    <p class="title-greet font-medium" style="font-family:Poppins"> Welcome to </p>
+                    <div id="logoContainer">
+                        <img src="../assets/newgteclogo.png" alt="Logo">
+                        <p class="title-brand primaryText" style="font-family:Poppins"> Backend </p>
+                    </div>
+                </div>
+
+                <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="form-group">
+                        <InputText id="email" class="form-control" style="@GetEmailBorderStyle()" @bind-Value="loginModel.Email" @oninput="OnEmailInput" placeholder="Email" />
+                        <ValidationMessage For="@(() => loginModel.Email)" />
+                    </div>
+
+
+                      <div class="form-group">
+                        <div class="passcontainer">
+                            <div class="input-group">
+                                <InputText id="password" style="@GetPasswordBorderStyle()" type="@GetPasswordInputType()" class="form-control" @bind-Value="loginModel.Password" placeholder="Password" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text show-password" @onclick="TogglePasswordVisibility">
+                                        @if (passwordVisible)
+                                        {
+                                            <img src="../assets/visible.png" alt="Hide" />
+                                        }
+                                        else
+                                        {
+                                        <img src="../assets/invisible.png" alt="Show" />
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+                            <ValidationMessage For="@(() => loginModel.Password)" />
+                        </div>
+                    </div>
+
+
+
+
+
+                    @if (ShowErrors)
+                    {
+                        <div class="alert alert-danger mt-3" role="alert">
+                            <p>@Error</p>
+                        </div>
+                    }
+
+                    <div class="btn-group">
+
+                        @if (loading)
+                        {
+                            <button class="btn-login" disabled>
+                                Logging In
+                                <img src="./assets/loading.gif" class="loading-indicator">
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn-login">Login</button>                       
+                        }
+
+                    </div>
+                </EditForm>
+            </div>
+
+        </div>
+    </div>
+</div> *@

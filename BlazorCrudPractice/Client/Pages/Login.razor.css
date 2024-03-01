@@ -1,0 +1,327 @@
+﻿.background-image-gtec {
+    overflow: hidden;
+}
+
+.page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 74vh;
+    animation: moveUp 0.75s forwards;
+}
+
+
+.form-container {
+    width: 561px;
+}
+
+.form-header {
+    text-align: center
+}
+
+
+.title-greet {
+    font-weight: unset;
+    font-size: 40px;
+    margin-bottom: -19px;
+    color: #1c4532;
+}
+
+.title-brand {
+    font-weight: 900;
+    color: #1c4532;
+    font-size: 75px;
+}
+
+#logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+    #logoContainer img {
+        max-width: 311px;
+        margin: -10px 20px 0px 0px;
+    }
+
+.passcontainer {
+    box-shadow: 0px 0px 2px 2px rgba(110, 110, 110, 0.082);
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #C1C1C1;
+}
+
+.copyRight {
+    text-align: center;
+    bottom: 0;
+    padding-top: 30px;
+    color: #555555;
+}
+
+h6 {
+    font-weight: bold;
+}
+
+.btn-login {
+    background: linear-gradient(90deg, rgba(81,12,215,1) 40%, rgba(27,154,187,1) 100%);
+    padding: 15px 109px !important;
+    text-decoration: none;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 300;
+    /*  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);*/
+    border-radius: 8px;
+    color: white;
+}
+
+.show-password {
+    background-color: #ffffff00;
+    border-color: #ffffff00;
+    margin-top: 15px;
+}
+
+
+/* .btn-gtec:disabled {
+        background: #d3d3d3;
+        color: dimgray;
+    }*/
+
+.btn-group {
+    width: 100%;
+    display: flex;
+    margin-top: 3rem;
+    justify-content: center;
+    outline: none;
+}
+
+.loading-indicator {
+    margin-left: 5px;
+    width: 20px;
+}
+
+
+.show-password {
+    position: relative;
+    color: var(--primaryColor);
+    font-weight: 500;
+    margin-top: 10px;
+    text-align: center;
+    position: absolute;
+    left: auto;
+    right: 10px;
+    z-index: 200;
+    height: 40px;
+}
+
+    .show-password:hover {
+        background-color: #EAEAEA;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+/*EHR*/
+.LoginContainer {
+    display: flex;
+    height: 100vh;
+    /* flex-direction: column;*/
+}
+
+.RightContainer {
+    margin: auto;
+}
+
+.LeftContainer {
+    display: none;
+}
+
+.FullWidth {
+    width: 100%;
+}
+
+.logo {
+    height: 250px;
+    display: flex;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.formInput {
+    width: 90%;
+    margin: auto;
+}
+
+.LeftContainer {
+    flex: 1;
+}
+
+    .LeftContainer img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.welcometo {
+    font-size: 18px;
+    margin: 8px 0px 8px 0;
+    font-weight: bolder;
+    padding: 10px 0 10px 0;
+}
+
+    .welcometo span {
+        font-weight: bold;
+    }
+
+    .welcometo .prime {
+        color: #3764B1;
+    }
+
+@media only screen and (max-width:768px) {
+    .RightContainer {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .welcometo {
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .LeftContainer {
+        display: block;
+    }
+
+    .LoginContainer {
+        flex-direction: row;
+    }
+
+    .col {
+        flex: 1;
+    }
+}
+
+
+
+
+/* Validation */
+.invalid-email input {
+    border-color: red;
+}
+
+.alert {
+    margin: 1rem 0rem -2rem 0rem;
+    padding: 0px !important;
+}
+
+.alert-danger {
+    display: flex !important;
+    text-align: center !important;
+    justify-content: center !important;
+}
+
+p {
+    margin: 0.5rem 0rem;
+}
+
+
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 375px) {
+    .form-container {
+        width: 281px;
+    }
+
+    .title-brand {
+        font-size: 30px;
+    }
+
+    #logoContainer img {
+        max-width: 127px;
+        margin: -3px 7px 0px 0px;
+    }
+
+    #logoContainer {
+        margin-bottom: 15px;
+    }
+
+    .title-greet {
+        font-size: 20px;
+    }
+
+    .logo {
+        height: 200px;
+    }
+}
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 376px) and (max-width: 626px) {
+    .form-container {
+        width: 385px;
+    }
+
+    .title-brand {
+        font-size: 35px;
+    }
+
+    #logoContainer img {
+        max-width: 147px;
+        margin: -4px 20px 0px 0px;
+    }
+
+    #logoContainer {
+        margin-bottom: 20px;
+    }
+
+    .title-greet {
+        font-size: 25px;
+        margin-bottom: -19px;
+    }
+
+    .btn-login {
+        padding: 4px 79px !important;
+    }
+
+    .logo {
+        height: 200px;
+    }
+
+
+    /*EHR*/
+    /*    .logo{
+        height: 100px;
+    }
+    .Logincontainer {
+        display: block;
+        height: 100vh;
+    }
+
+    .image img {
+        height: 200px;
+    }
+
+    .form{
+     top: -200px;
+    }*/
+
+    /*.form {
+        padding-bottom: 200px;
+        position: relative;
+    }*/
+}
+
+
+
+@keyframes moveUp {
+    from {
+        transform: translateY(100px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}

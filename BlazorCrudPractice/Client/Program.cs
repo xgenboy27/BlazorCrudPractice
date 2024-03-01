@@ -1,6 +1,11 @@
 using BlazorCrudPractice.Client;
 using BlazorCrudPractice.Client.Services;
+using BlazorCrudPractice.Client.State;
+using BlazorCrudPractice.Client.Utility;
+using BlazorCrudPractice.Shared.Model;
+using Blazored.LocalStorage;
 using Blazored.Modal;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -8,9 +13,15 @@ using MudBlazor.Services;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IService,Service>();
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<UserInfoState>();
+builder.Services.AddSingleton<UserInfo>();
 builder.Services.AddMudServices();
 builder.Services.AddBlazoredModal();
 await builder.Build().RunAsync();

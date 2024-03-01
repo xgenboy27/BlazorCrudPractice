@@ -1,11 +1,12 @@
 ﻿@page "/Employee"
-@inherits EmployeeBase
+@inherits BaseEmployee
 @using System.Net.Http.Json
+@using Microsoft.JSInterop;
 
 <PageTitle>Employee Registration</PageTitle>
 
 <h1>Employee</h1>
-
+<button @onclick="ShowMessage">Show Message</button>
 <div>
     <div>
         <EditForm Model="EmployeeModels" OnSubmit="M_SaveEmployee">
@@ -64,7 +65,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var employee in Employee)
+                @foreach (var employee in _Employee)
                 {
                     <tr>
                         <td>@employee.EmployeeName</td>

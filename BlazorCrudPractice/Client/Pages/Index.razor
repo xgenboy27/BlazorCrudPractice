@@ -1,9 +1,19 @@
 ﻿@page "/"
+@using BlazorCrudPractice.Client.Pages.Dashboard
+@using BlazorCrudPractice.Client.Services
+@inject IAuthService authService
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<PageTitle>Welcome to EHR</PageTitle>
 
-Welcome to your new app.
+<AuthorizeView>
+    <NotAuthorized>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+        <Login></Login>
+    </NotAuthorized>
+    <Authorized>
+        <MainDashboard></MainDashboard>
+    </Authorized>
+</AuthorizeView>
+
+

@@ -1,14 +1,35 @@
 global using BlazorCrudPractice.DataSQL;
 using BlazorCrudPractice.Server.Common;
+using BlazorCrudPractice.Server.Model;
 using BlazorCrudPractice.Server.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:EHRDB");
+var connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
 
-builder.Services.AddDbContext<BlazorCrudPracticeDbContext>(options => options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<BlazorCrudPracticeDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<UserIdentityDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UserIdentityDbContext>();
 // Add services to the container.
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["JwtIssuer"],
+                ValidAudience = builder.Configuration["JwtAudience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSecurityKey"]!))
+            };
+        });
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -47,10 +68,11 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
-
+await IdentityDefaultUser.CreateDefaultAccount(app);
 app.Run();

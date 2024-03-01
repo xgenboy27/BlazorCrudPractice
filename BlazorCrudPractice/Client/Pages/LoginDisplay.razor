@@ -1,0 +1,44 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <div class="TopNav">
+            @*   Date Today *@
+            <div class="Date">
+                <img src="assets/icons/Date.png" />
+                <p>@DateTime.Now.ToString("MM/dd/yyyy")</p>
+            </div>
+            @*       FacilityLocation *@
+            <div class="Location">
+                4300 Central Avenue Riverside, CA 92506
+            </div>
+            <div class="dropdown">
+                <div class="dropdown-header rowItem">
+                    <div class="UserImage">
+                        <img src="/assets/icons/user.png" />
+                    </div>
+                    <div class="">
+                        <div class="UserName">
+                            @userInfo.UserName
+                        </div>
+                        <div class="UserRole">
+                            @userInfo.Role
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-content">
+                    <a href="" @onclick="(() => Logout())" @onclick:preventDefault>
+                        Log Out
+                        <img src="/assets/icons/logout.svg" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        @*         <span> Hello, <b class="ml-2">  @context.User.Identity!.Name!    </b></span>
+        <a href="" class="btn btn-primary text-decoration-none" @onclick="(() => Logout())" @onclick:preventDefault>Log Out</a> *@
+    </Authorized>
+    @*    <NotAuthorized>
+    <a href="" @onclick="(() => Register())" @onclick:preventDefault>Register</a>
+    <a href="" @onclick="(() => Login())" @onclick:preventDefault>Log In</a>
+    </NotAuthorized>*@
+</AuthorizeView>

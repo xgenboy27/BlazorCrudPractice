@@ -1,5 +1,7 @@
-.navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+
+
+.gtec-header-sidebar {
+    width: 40px;
 }
 
 .top-row {
@@ -9,17 +11,34 @@
 
 .navbar-brand {
     font-size: 1.1rem;
+    flex: 1;
 }
 
 .oi {
-    width: 2rem;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+    margin-right: 6px;
     vertical-align: text-top;
     top: -2px;
 }
 
+span {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.nav-link {
+    font-size: 3rem;
+}
+
+
+.MenuIcon {
+    height: 1.7rem;
+    margin-right: 6px;
+    filter: contrast(100%) contrast(30%);
+}
+
 .nav-item {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     padding-bottom: 0.5rem;
 }
 
@@ -32,37 +51,109 @@
     }
 
     .nav-item ::deep a {
-        color: #d7d7d7;
+        color: #707070;
         border-radius: 4px;
         height: 3rem;
         display: flex;
         align-items: center;
         line-height: 3rem;
+        font-family: NunitoSemiBold;
     }
 
-.nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.25);
-    color: white;
+        .nav-item ::deep a.active .MenuIcon {
+            filter: brightness(0) invert(1);
+            /*   filter: invert(36%) sepia(68%) saturate(501%) hue-rotate(138deg) brightness(98%) contrast(92%);*/
+        }
+
+        .nav-item ::deep a.active {
+            background-color: #1599A5;
+            color: white;
+            font-family: NunitoBold;
+        }
+
+
+            .nav-item ::deep a.active:hover {
+                background-color: #09717A;
+                color: white;
+            }
+
+        .nav-item ::deep a:hover {
+            background-color: #EEEEEE;
+            /*   color: black;*/
+        }
+
+.separator {
+    margin: -40px 20px 40px 20px;
+    border-bottom: 1px solid #E6E6EA;
 }
 
-.nav-item ::deep a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-}
 
-@media (min-width: 641px) {
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .oi {
+        font-size: 1.1rem;
+        margin-right: 5px;
+        vertical-align: text-top;
+        top: -2px;
+    }
+
+    .nav-item {
+        font-size: 0.8rem;
+        padding-bottom: 0.5rem;
+    }
+
     .navbar-toggler {
         display: none;
     }
 
+    .gtec-header-sidebar {
+        width: 100%;
+        margin-left: 10px;
+    }
+
     .collapse {
-        /* Never collapse the sidebar for wide screens */
         display: block;
     }
-    
+
     .nav-scrollable {
-        /* Allow sidebar to scroll for tall menus */
-        height: calc(100vh - 3.5rem);
-        overflow-y: auto;
+        min-height: 100vh;
+        overflow-y: hidden;
+    }
+
+    .navigationBar .nav-item .nav-name {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    .oi {
+        font-size: 1.5rem;
+        margin-right: 10px;
+        vertical-align: text-top;
+        top: -2px;
+    }
+
+    .nav-item {
+        font-size: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .gtec-header-sidebar {
+        width: 60%;
+        margin-left: 10px;
+    }
+
+    .collapse {
+        display: block;
+    }
+
+    .nav-scrollable {
+        min-height: 100vh;
+        overflow-y: hidden;
     }
 }

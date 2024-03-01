@@ -1,17 +1,29 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorCrudPractice.Client.Pages
+@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+    <AuthorizeView>
+        <Authorized>
+            <div class="sidebar">
+                <NavMenu></NavMenu>
+            </div>
+        </Authorized>
+    </AuthorizeView>
 
     <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="top-row px-4">
+                    <LoginDisplay></LoginDisplay>
+                </div>
+            </Authorized>
+        </AuthorizeView>
 
-        <article class="content px-4">
-            @Body
-        </article>
+        <!-- Main content goes here -->
+        @Body
     </main>
 </div>
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
