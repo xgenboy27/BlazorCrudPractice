@@ -74,5 +74,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
-await IdentityDefaultUser.CreateDefaultAccount(app);
+//await IdentityDefaultUser.CreateDefaultAccount(app);
 app.Run();

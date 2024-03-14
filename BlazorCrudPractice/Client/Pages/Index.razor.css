@@ -1,0 +1,119 @@
+﻿/* Index.razor.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    animation: fadeOut 0.4s forwards;
+}
+
+.background-image {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.title-greet {
+    font-weight: unset;
+    font-size: 40px;
+    margin-bottom: -19px;
+    color: #1c4532;
+}
+
+.title-brand {
+    font-weight: 900;
+    color: #1c4532;
+    font-size: 75px;
+}
+
+.btn-gtec {
+    background-color: #335f4a;
+    padding: 7px 109px !important;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 300;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+}
+
+#logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+    #logoContainer img {
+        max-width: 311px;
+        margin: -29px 20px 0px 0px;
+    }
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 375px) {
+    .title-greet {
+        margin-bottom: -29px;
+        font-size: 15px;
+    }
+
+    .title-brand {
+        margin-bottom: 7px;
+        font-size: 20px;
+    }
+
+    #logoContainer img {
+        max-width: 81px;
+        margin: -10px 10px 0px 0px;
+    }
+
+    #logoContainer[b-xx3hbp6yxy] {
+        padding-top: 20px;
+    }
+
+    .btn-gtec {
+        padding: 3px 34px !important;
+        font-size: 12px;
+    }
+}
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 376px) and (max-width: 575px) {
+    .title-greet {
+        font-size: 20px;
+        margin-bottom: -29px;
+    }
+
+    #logoContainer img {
+        max-width: 130px;
+        margin: -11px 8px 0px 0px;
+    }
+
+    .title-brand {
+        margin-top: 10px;
+        font-size: 30px;
+    }
+
+    #logoContainer[b-xx3hbp6yxy] {
+        padding-top: 11px;
+    }
+
+    .btn-gtec {
+        padding: 3px 34px !important;
+        font-size: 12px;
+    }
+}
+
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+
+    .title-greet {
+        font-size: 30px;
+    }
+
+    #logoContainer img {
+        max-width: 267px;
+        margin: -19px 10px 0px 0px;
+    }
+}
